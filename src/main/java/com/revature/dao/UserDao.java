@@ -15,12 +15,12 @@ public class UserDao {
     }
 
     public User getUserByUsernameAndPassword(String username, String password) throws SQLException {
-        try(Connection con = ConnectionUtility.getConnection()) {
-            String sql = "SELECT users.id, users.username, users.password, user_role.ro  " +
-            "FROM user " +
+        try(Connection con = ConnectionUtility.getConnection()) { //Automatically closes the connection
+            String sql = "SELECT users.id, users.username, users.password, user_role.role " +
+            "FROM users " +
             "INNER JOIN user_role " +
             "ON users.user_role_id = user_role.id " +
-                    "WHERE users.username = 'bach_tran' AND USER.password = password123";
+            "WHERE users.username = ? AND users.password = ?";
 
             PreparedStatement pstmt = con.prepareStatement(sql);
 
